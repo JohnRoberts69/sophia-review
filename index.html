@@ -1,1 +1,195 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A little something for Sophia ❤️</title>
+<style>
+:root {
+  --bg:#101019; --panel:#191925; --muted:#aaa7b9;
+  --text:#f7f5ff; --pink:#ff6f9f; --peach:#ffb28b;
+}
+* {box-sizing:border-box}
+body {
+ margin:0; min-height:100vh; display:grid; place-items:center;
+ padding:22px; color:var(--text);
+ font-family:Inter,system-ui,-apple-system,sans-serif;
+ background:radial-gradient(ellipse at 15% 10%,#ff6f9f25,transparent 38%),
+ radial-gradient(ellipse at 90% 90%,#9875ff22,transparent 35%),var(--bg);
+}
+.shell {width:min(100%,720px)}
+.topline {
+ display:flex;justify-content:space-between;margin:0 3px 18px;
+ color:var(--muted);font-size:11px;letter-spacing:.13em;
+ text-transform:uppercase;
+}
+.dot {color:#70e1ae;margin-right:7px}
+.card {
+ background:linear-gradient(145deg,#211f30,#151520);
+ border:1px solid #ffffff18;border-radius:26px;
+ padding:clamp(27px,6vw,55px);
+ min-height:490px;display:flex;flex-direction:column;
+ justify-content:center;position:relative;overflow:hidden;
+ box-shadow:0 30px 90px #0008;
+}
+.heart {position:absolute;right:28px;top:23px;color:#ff6f9f77;font-size:25px}
+.eyebrow {color:var(--pink);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px}
+h1 {font-size:clamp(39px,7vw,65px);line-height:1.03;letter-spacing:-.055em;margin:0 0 20px}
+.accent {background:linear-gradient(100deg,var(--pink),var(--peach));-webkit-background-clip:text;background-clip:text;color:transparent}
+p {color:var(--muted);font-size:16px;line-height:1.75;margin:0 0 22px}
+.actions {display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:8px}
+button {border:0;border-radius:99px;padding:14px 22px;font-size:14px;font-weight:800;cursor:pointer;transition:transform .2s,filter .2s}
+button:hover {filter:brightness(1.12);transform:translateY(-2px)}
+.primary {background:linear-gradient(110deg,var(--pink),var(--peach));color:#29141f;box-shadow:0 10px 28px #ff6f9f30}
+.secondary {background:#292838;color:white;border:1px solid #ffffff20}
+.tiny {font-size:12px;color:#777589;margin-top:19px}
+.pill {display:inline-block;border:1px solid #ffffff20;background:#ffffff08;border-radius:99px;padding:8px 12px;color:#d8d5e5;font-size:12px;margin:0 5px 8px 0}
+.stat {font-size:85px;font-weight:900;letter-spacing:-.07em;background:linear-gradient(110deg,var(--pink),var(--peach));-webkit-background-clip:text;color:transparent;line-height:1.1}
+.quote {border-left:2px solid var(--pink);padding:5px 0 5px 17px;color:#eee9f5;font-size:18px;line-height:1.6;margin:19px 0 25px}
+.progress {height:3px;background:#ffffff12;border-radius:9px;overflow:hidden;margin-top:25px}
+.progress span {display:block;height:100%;background:linear-gradient(90deg,var(--pink),var(--peach));transition:width .4s}
+.final {text-align:center;align-items:center}
+.final h1 {max-width:100%}
+.final p {max-width:520px}
+.final .actions {justify-content:center}
+.success {font-size:65px;margin:10px;animation:bounce .7s}
+#spaReveal {display:none}
+#noBtn {position:relative}
+@keyframes bounce {50%{transform:scale(1.2) rotate(-8deg)}}
+.confetti {position:fixed;top:-20px;width:9px;height:13px;pointer-events:none;animation:fall 3.5s linear forwards;z-index:10}
+@keyframes fall {to{transform:translateY(110vh) rotate(720deg);opacity:.2}}
+@media(max-width:520px){.card{min-height:540px;border-radius:22px}.topline{font-size:9px}}
+</style>
+</head>
+<body>
+<main class="shell">
+<div class="topline">
+<span><i class="dot">●</i> A small internet production</span>
+<span>Sophia edition ♥</span>
+</div>
+
+<section class="card" id="card" aria-live="polite">
+<div class="heart">♥</div>
+<div class="eyebrow" id="eyebrow">Please read carefully</div>
+<h1 id="heading">Sophia, I've got a <span class="accent">question.</span></h1>
+<p id="copy">I've considered the evidence, reviewed the data, and decided this deserves more than a text message.</p>
+<div id="extra"></div>
+<div class="actions" id="actions">
+<button class="primary" id="nextBtn">Alright, go on then →</button>
+</div>
+<div class="tiny" id="tiny">No pressure. Okay, a little bit of pressure. The fun kind.</div>
+<div class="progress"><span id="progress"></span></div>
+</section>
+</main>
+
+<script>
+const screens = [
+{
+eyebrow:"The origin story",
+heading:'Against all <span class="accent">odds...</span>',
+copy:'Somewhere in the endless scroll of dating apps, two people managed to find each other. And honestly? That feels like a pretty good plot twist.',
+extra:'<div class="stat">1 / 50</div><div class="quote">"Swiping 1/50 times, you’ll find the one."</div><span class="pill">Statistically questionable</span><span class="pill">Emotionally compelling</span>',
+button:'Continue the investigation'
+},
+{
+eyebrow:"A developing situation",
+heading:'Then came the <span class="accent">dates.</span>',
+copy:'One date turned into another. Then another. And suddenly, spending time together became one of my favourite things to do.',
+extra:'<div class="quote">I could list every little moment, but I’d rather keep making new ones with you.</div><span class="pill">More dates, please</span><span class="pill">Excellent company</span>',
+button:'I’m listening…'
+},
+{
+eyebrow:"Something I didn't quite expect",
+heading:'How did this get so <span class="accent">easy?</span>',
+copy:'It’s surreal how naturally we’ve connected. I didn’t expect to feel this comfortable with someone, or to find myself so infatuated with the idea of seeing where this could go.',
+extra:'<div class="quote">The more time we spend together, the more I want this relationship to grow — and somehow it’s happened with a speed and intensity that just feels right.</div><span class="pill">Unexpectedly smitten</span><span class="pill">Very much enjoying this</span>',
+button:'There’s one more thing…'
+},
+{
+eyebrow:"A little spa-day confession",
+heading:'And then there was the <span class="accent">spa date.</span>',
+copy:'I came away from that day with a pretty important realisation. But the full confession is hidden behind this very official reveal button.',
+extra:'<button class="secondary" id="revealBtn" onclick="revealSpa()">Unveil the confession ✨</button><div id="spaReveal" class="quote">I realised this woman is incredible, kind and absolutely stunning. I may be punching above my weight, but you are the best thing to ever walk into my life.</div>',
+button:'Okay, now the actual question'
+},
+{
+eyebrow:"A phrase of great importance",
+heading:'“If we get <span class="accent">serious</span>…”',
+copy:'A phrase that has made a few appearances in our conversations. So I thought it was probably time to investigate what happens if we actually do.',
+extra:'<div class="quote">I quite like the idea of finding out, with you.</div><span class="pill">Future possibilities detected</span>',
+button:'Get to the point'
+}
+];
+
+let index=-1;
+const $ = id => document.getElementById(id);
+
+function next() {
+ index++;
+ if(index<screens.length) renderScreen(screens[index]);
+ else showQuestion();
+}
+
+function renderScreen(s) {
+ $('eyebrow').textContent=s.eyebrow;
+ $('heading').innerHTML=s.heading;
+ $('copy').textContent=s.copy;
+ $('extra').innerHTML=s.extra;
+ $('actions').innerHTML=`<button class="primary" id="nextBtn">${s.button} →</button>`;
+ $('nextBtn').addEventListener('click',next);
+ $('tiny').textContent='This presentation has been carefully and unnecessarily over-engineered.';
+ $('progress').style.width=((index+1)/5*100)+'%';
+}
+
+function revealSpa() {
+ $('spaReveal').style.display='block';
+ $('revealBtn').style.display='none';
+ $('tiny').textContent='Confession successfully unveiled. No taking it back now.';
+}
+
+function showQuestion() {
+ $('eyebrow').textContent='The bit I actually wanted to ask';
+ $('heading').innerHTML='Sophia, will you be <span class="accent">my girlfriend?</span>';
+ $('copy').textContent='I really like you, I love what we’re building, and I’d like to make this official. So… what do you say?';
+ $('extra').innerHTML='<div class="quote">No complicated terms and conditions. Just me, you, and hopefully a lot more dates.</div>';
+ $('actions').innerHTML='<button class="primary" id="yesBtn">YES. Obviously. ♥</button><button class="secondary" id="noBtn">No</button>';
+ $('yesBtn').addEventListener('click',celebrate);
+ $('noBtn').addEventListener('mouseenter',dodge);
+ $('noBtn').addEventListener('click',dodge);
+ $('tiny').textContent='Choose wisely. (The NO button has been warned.)';
+ $('progress').style.width='100%';
+}
+
+function dodge() {
+ const x=(Math.random()-.5)*220;
+ const y=(Math.random()-.5)*120;
+ $('noBtn').style.transform=`translate(${x}px,${y}px)`;
+ $('tiny').textContent='Interesting choice. Are you absolutely sure?';
+}
+
+function celebrate() {
+ $('card').classList.add('final');
+ $('eyebrow').textContent='A decision of excellent quality';
+ $('heading').innerHTML='Best. <span class="accent">Answer. Ever.</span>';
+ $('copy').textContent='I’m really happy it’s you, Sophia. Here’s to whatever comes next. ♥';
+ $('extra').innerHTML='<div class="success">🥂</div><span class="pill">Officially us</span><span class="pill">More adventures ahead</span>';
+ $('actions').innerHTML='<button class="primary" onclick="location.reload()">Relive this highly professional experience ↻</button>';
+ $('tiny').textContent='Screenshot this moment. It’s going in the archives.';
+ for(let i=0;i<85;i++) confetti();
+}
+
+function confetti() {
+ const el=document.createElement('i');
+ el.className='confetti';
+ el.style.left=Math.random()*100+'vw';
+ el.style.background=['#ff6f9f','#ffb28b','#a78bfa','#f9e27d','#7ee3c1'][Math.floor(Math.random()*5)];
+ el.style.animationDuration=(2.4+Math.random()*2)+'s';
+ document.body.appendChild(el);
+ setTimeout(()=>el.remove(),4800);
+}
+
+$('nextBtn').addEventListener('click',next);
+</script>
+</body>
+</html>
